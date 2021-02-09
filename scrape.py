@@ -1,21 +1,15 @@
 #!/usr/bin/python
 
-from urllib.request import urlopen
-from urllib.error import HTTPError
+import requests
 from bs4 import BeautifulSoup
 import csv
 
 year = 2018
 url = 'https://admeter.usatoday.com/results/'
+uri = '%s%d' % (url, year)
 
-try:
-    page = urlopen('%s%d' % (url, year))
-except HTTPError as err:
-    print("Encountered error retrieving page: ", err.code)
-    exit(1)
-
-html = page.read().decode("utf-8")
-soup = BeautifulSoup(html, "html.parser")
+response = requests.get(uri)
+soup = BeautifulSoup(response.text, "html.parser")
 content = soup.find(id='content')
 
 with open('%d.csv' % year, 'w') as csvfile:
