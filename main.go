@@ -12,22 +12,6 @@ import (
 	"github.com/MontFerret/ferret/pkg/drivers/http"
 )
 
-type Ad struct {
-	Brand   string
-	Title   string
-	AvgRank float32
-	AirTime string
-	Link    string
-}
-
-var query = `
-LET doc = DOCUMENT("https://admeter.usatoday.com/results/2021")
-
-FOR ad IN ELEMENTS(doc, '#post-')
-    LET link = ELEMENT(ad, 'a')
-    RETURN {link: link.attributes.href}
-`
-
 func main() {
 	comp := compiler.New()
 
@@ -48,7 +32,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	var results []*Ad
+	var results []*ad
 	err = json.Unmarshal(out, &results)
 	if err != nil {
 		fmt.Println(err)
@@ -57,6 +41,6 @@ func main() {
 
 	for idx, ad := range results {
 		_ = idx
-		fmt.Println(ad.Link)
+		fmt.Printf("%s, %s\n", ad.Title, ad.Link)
 	}
 }
