@@ -8,3 +8,9 @@ Desired output is a csv file for each year with columns
 Year,Brand,Ad Name,Rank,Avg. Rating,Air Time,Link
 
 where link is to admeter detail page for the ad (e.g. [https://admeter.usatoday.com/commercials/cashew/](https://admeter.usatoday.com/commercials/cashew/)).
+
+## Python implementation
+...just to knock out the task and pass along the data
+
+## Golang implementation
+...to try out [ferret](https://github.com/MontFerret/ferret)
