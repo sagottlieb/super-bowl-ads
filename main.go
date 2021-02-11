@@ -40,7 +40,6 @@ func main() {
 	}
 
 	for idx, ad := range results {
-		_ = idx
-		fmt.Printf("%s, %s\n", ad.Title, ad.Link)
+		fmt.Printf("#%d, %s, %s, %s, %s, %s\n", idx+1, ad.Brand, ad.Quarter, ad.Title, ad.Score, ad.Link)
 	}
 }
