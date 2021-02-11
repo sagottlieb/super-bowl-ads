@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"encoding/csv"
 	"encoding/json"
 	"fmt"
 	"os"
+	"strconv"
 
 	"github.com/MontFerret/ferret/pkg/compiler"
 	"github.com/MontFerret/ferret/pkg/drivers"
@@ -39,7 +41,18 @@ func main() {
 		os.Exit(1)
 	}
 
-	for idx, ad := range results {
-		fmt.Printf("#%d, %s, %s, %s, %s, %s\n", idx+1, ad.Brand, ad.Quarter, ad.Title, ad.Score, ad.Link)
+	file, err := os.Create("2021.csv")
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
 	}
+
+	csvwriter := csv.NewWriter(file)
+
+	for idx, ad := range results {
+		csvwriter.Write([]string{"2021", ad.Brand, ad.Title, strconv.Itoa(idx + 1), ad.Score, ad.Quarter, ad.Link})
+	}
+
+	csvwriter.Flush()
+	file.Close()
 }
